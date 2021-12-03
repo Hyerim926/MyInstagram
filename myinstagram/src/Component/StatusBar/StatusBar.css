@@ -28,3 +28,7 @@
   overflow: hidden;
   text-align: center;
 }
+
+.statusbar_upload {
+  margin: 23px 20px 20px 20px;
+}

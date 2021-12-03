@@ -13,9 +13,7 @@ class MainContent extends Component {
         return (
             <div>
                 <Grid container>
-                    <Grid item xs={2}>
-                        ddd
-                    </Grid>
+                    <Grid item xs={2}></Grid>
                     <Grid item xs={6}>
                         <div>
                             <StatusBar />
@@ -23,10 +21,8 @@ class MainContent extends Component {
                         </div>
                     </Grid>
                     <Grid item xs={2}>
-                        dddd
                     </Grid>
                     <Grid item xs={2}>
-                        dddd
                     </Grid>
                 </Grid>
 

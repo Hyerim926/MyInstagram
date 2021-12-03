@@ -3,7 +3,7 @@ import "./NavBar.css";
 import { Grid } from '@mui/material';
 import insta_log from "../../images/images/logoinsta.png";
 import home from "../../images/images/home.svg";
-import message from "../../images/images/message.svg";
+import message from "../../images/images/share.svg";
 import find from "../../images/images/find.svg";
 import react from "../../images/images/love.svg";
 import Avatar from '@mui/material/Avatar';
