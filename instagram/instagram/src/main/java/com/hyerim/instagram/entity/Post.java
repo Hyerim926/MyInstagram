@@ -8,30 +8,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
-@Entity(name = "Status")
+@Entity(name = "Post")
 @Getter @Setter
-public class Status {
+public class Post {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int Id;
 
-    private String statusId;
+    private String postId;
     private String userId;
-    private String path;
     private String userName;
+    private String postPath;
     private Timestamp timeStamp;
+    private int likeCount;
 
-    public Status() {
+    public Post() {
         super();
     }
 
-    public Status(int id, String statusId, String userId, String path, Timestamp timeStamp) {
+    public Post(int id, String postId, String userId, String postPath, Timestamp timeStamp, int likeCount) {
         super();
-        this.id = id;
-        this.statusId = statusId;
+        Id = id;
+        this.postId = postId;
         this.userId = userId;
-        this.path = path;
+        this.postPath = postPath;
         this.timeStamp = timeStamp;
+        this.likeCount = likeCount;
     }
 }
