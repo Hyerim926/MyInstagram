@@ -13,8 +13,8 @@ body {
 }
 
 .loginpage_rightcomponent {
-  height: 380px;
   width: 350px;
+  padding-bottom: 25px; /* height를 없애고 padding-bottom을 주면 영역크기와 패딩값이 유동적으로 맞춰 들어감 */
   border: 1px solid #dbdbdb;
   margin-top: 25px;
   text-align: center;
@@ -89,9 +89,11 @@ body {
 }
 
 .loginpage_signin {
+  margin-top: 20px;
 }
 
 .loginpage_signup {
+  margin-top: 20px;
 }
 
 .loginpage_downloadSection {

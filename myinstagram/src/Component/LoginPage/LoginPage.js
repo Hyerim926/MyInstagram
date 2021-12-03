@@ -6,13 +6,25 @@ import insta_logo from '../../images/images/logoinsta.png';
 import fb from '../../images/images/fb.png';
 import appstore from '../../images/images/app.png';
 import playstore from '../../images/images/play.png';
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
 
 
 class LoginPage extends Component { //ccc
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isLogin: true
+        }
     }
+
+    changeLogin = () => {
+        if (this.state.isLogin)
+            this.setState({ isLogin: false });
+        else
+            this.setState({ isLogin: true });
+    }
+
     render() {
         return (
             <div>
@@ -28,9 +40,10 @@ class LoginPage extends Component { //ccc
                                 <div className="loginpage_rightcomponent">
                                     <img className="loginpage_logo" src={insta_logo} />
                                     <div className="loginpage_signin">
-                                        <input className="loginpage_text" type="text" placeholder="Phone number, username, or email" />
-                                        <input className="loginpage_text" type="password" placeholder="Password" />
-                                        <button className="login_button">Log In</button>
+
+                                        {
+                                            this.state.isLogin ? <SignIn /> : <SignUp />
+                                        }
 
                                         <div className="login_ordiv">
                                             <div className="login_dividor"></div>
@@ -45,12 +58,16 @@ class LoginPage extends Component { //ccc
                                 </div>
 
                                 <div className="loginpage_signupoption">
-                                    <div className="loginpage_signin">
-                                        Don't have an account? <span style={{ "fontWeight": "bold", "color": "#0395f6" }}> Sign up </span>
-                                    </div>
-                                    <div className="loginpage_signup">
-                                        Have an account? <span style={{ "fontWeight": "bold", "color": "#0395f6" }}> Sign in </span>
-                                    </div>
+                                    {
+                                        this.state.isLogin ?
+                                            <div className="loginpage_signin">
+                                                Don't have an account? <span onClick={this.changeLogin} style={{ "fontWeight": "bold", "color": "#0395f6" }}> Sign up </span>
+                                            </div> :
+                                            <div className="loginpage_signup">
+                                                Have an account? <span onClick={this.changeLogin} style={{ "fontWeight": "bold", "color": "#0395f6" }}> Sign in </span>
+                                            </div>
+
+                                    }
                                 </div>
 
                                 <div className="loginpage_downloadSection">
