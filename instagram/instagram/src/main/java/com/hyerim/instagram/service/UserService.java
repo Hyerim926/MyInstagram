@@ -11,8 +11,8 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
-    public Users submitMetaDataOfUser(Users users) {
-        return userRepo.save(users);
+    public Users submitMetaDataOfUser(Users user) {
+        return userRepo.save(user);
     }
 
     public Users displayUserMetaData(String userid) {
