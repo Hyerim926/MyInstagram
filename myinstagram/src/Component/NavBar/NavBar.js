@@ -20,7 +20,6 @@ class NavBar extends Component {
                 <div className="navbar_barContent">
                     <Grid container>
                         <Grid item xs={2}>
-                            ddd
                         </Grid>
                         <Grid item xs={3}>
                             <img className="navbar_logo" src={insta_log} width="105px" />
