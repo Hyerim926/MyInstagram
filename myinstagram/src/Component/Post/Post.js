@@ -20,17 +20,54 @@ class Post extends Component {
     }
 
     getComments = () => { //API backend
-        let data = [ //JSON Format
-            {
-                "username": "ASD",
-                "commentId": "1234",
-                "timeStamp": "123456",
-                "description": "Comment 1"
-            }
-        ];
-
-        this.setState({ commentList: data });
+        // let data = [ //JSON Format
+        //     {
+        //         "username": "ASD",
+        //         "commentId": "1234",
+        //         "timeStamp": "123456",
+        //         "description": "Comment 1"
+        //     }
+        // ];
+        fetch('http://localhost:8080/comments/' + this.props.id)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ commentList: data });
+            });
     }
+
+    submitComments = (event) => {
+        if (event.key === "Enter") {
+            let comment = event.currentTarget.value;
+            if (comment !== null || comment !== undefined) {
+
+                let payload = {
+                    "commentId": Math.floor(Math.random() * 1000000).toString(),
+                    "userId": JSON.parse(localStorage.getItem("users")).uid,
+                    "postId": this.props.id,
+                    "timeStamp": new Date().getTime(),
+                    "comment": comment
+                }
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                }
+
+                fetch("http://localhost:8080/comments", requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.getComments();
+                    })
+                    .catch(error => {
+
+                    })
+
+            }
+        }
+
+    }
+
     render() {
         return (
             <div className="post_container">
@@ -62,10 +99,11 @@ class Post extends Component {
                 <div>
                     {
                         this.state.commentList.map((item, index) => (
-                            <div className="post_comment">{item.username}: {item.description}</div>
+                            index < 4 ?
+                                <div className="post_comment">{item.userName}: {item.comment}</div> : <span></span>
                         ))
                     }
-                    <input text="text" className="post_commentbox" placeholder="Add a comment..." />
+                    <input text="text" onKeyPress={this.submitComments} className="post_commentbox" placeholder="Add a comment..." />
                 </div>
             </div>
         );

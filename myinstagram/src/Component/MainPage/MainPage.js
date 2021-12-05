@@ -19,16 +19,23 @@ class MainPage extends Component {
     }
 
     getPost = () => { //API
-        let data = [
-            {
-                "postId": "123456",
-                "userName": "anonymous",
-                "postImageURL": "https://i.natgeofe.com/k/dfc7bec2-0657-4887-81a7-6d024a8c3f70/WH-XmasTree.jpg",
-                "timeStamp": "12345",
-                "likes": "1K"
-            }
-        ];
-        this.setState({ postArray: data });
+
+        const thisContext = this;
+        // let data = [
+        //     {
+        //         "postId": "123456",
+        //         "userName": "anonymous",
+        //         "postImageURL": "https://i.natgeofe.com/k/dfc7bec2-0657-4887-81a7-6d024a8c3f70/WH-XmasTree.jpg",
+        //         "timeStamp": "12345",
+        //         "likes": "1K"
+        //     }
+        // ];
+
+        fetch("http://localhost:8080/post")
+            .then(response => response.json())
+            .then(data => {
+                thisContext.setState({ postArray: data });
+            });
     }
 
     upload = (event) => {
@@ -49,6 +56,32 @@ class MainPage extends Component {
             function () {
                 uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
                     console.log(downloadURL);
+
+                    // Backend API와 연동 - localhost:8080/post
+                    let payload = {
+                        "postId": Math.floor(Math.random() * 100000).toString(),
+                        "userId": JSON.parse(localStorage.getItem("users")).uid,
+                        "postPath": downloadURL,
+                        "timeStamp": new Date().getTime(),
+                        "likeCount": 0
+                    }
+
+                    const requestOptions = {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    }
+
+                    fetch("http://localhost:8080/post", requestOptions)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            thisContext.getPost();
+                        })
+                        .catch(error => {
+
+                        })
+
                 })
             }
         );
@@ -70,7 +103,7 @@ class MainPage extends Component {
                 <div className="upload_text">{this.state.progressBar}</div>
                 {
                     this.state.postArray.map((item, index) => (
-                        <Post id={item.postId} userName={item.userName} postImage={item.postImageURL} likes={item.likes} />
+                        <Post id={item.postId} userName={item.userName} postImage={item.postPath} likes={item.likes} />
                     ))
                 }
             </div>
